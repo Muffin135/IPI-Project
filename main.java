@@ -1,12 +1,12 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 /* Lionel Quintanilla and Nathanael Gastelum
    February 19, 2020
    Purpose: This program calculates cost and calories from a shopping cart of desserts and prints a sorted receipt
    Input: No user input
    Output: Test results for every dessert class and receipt for all checkout items
  */
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class main {
 
@@ -15,6 +15,7 @@ public class main {
         System.out.println("\n-----------------------------------------");
         System.out.print("CANDY TEST");
 
+        // Default constructor test for Candy
         Candy emptyCandy = new Candy();
         System.out.print(emptyCandy.toString());
 
@@ -33,6 +34,7 @@ public class main {
         System.out.println("\n-----------------------------------------");
         System.out.println("COOKIE TEST");
 
+        // Default constructor test for Cookie
         Cookie emptyCookie = new Cookie();
         System.out.print(emptyCookie.toString());
 
@@ -51,6 +53,7 @@ public class main {
         System.out.println("\n-----------------------------------------");
         System.out.println("ICE CREAM TEST");
 
+        // Default constructor test for IceCream
         IceCream emptyIceCream = new IceCream();
         System.out.print(emptyIceCream.toString());
 
@@ -67,6 +70,7 @@ public class main {
         System.out.println("\n-----------------------------------------");
         System.out.println("SUNDAE TEST");
 
+        // Default constructor test for Sundae
         Sundae emptySundae = new Sundae();
         System.out.print(emptySundae.toString());
 
@@ -85,8 +89,13 @@ public class main {
         System.out.println("\n-----------------------------------------");
         System.out.println("Output Receipt:\n");
 
+        // Constructor test for Checkout
         Checkout newRegister = new Checkout();
 
+        // setTaxRate() test
+        newRegister.setTaxRate(6.25);
+
+        // enterItem() test
         newRegister.enterItem(corn);
         newRegister.enterItem(lolipop);
         newRegister.enterItem(chocChip);
@@ -96,29 +105,67 @@ public class main {
         newRegister.enterItem(caramel);
         newRegister.enterItem(bananaSplit);
 
+        // numberOfItems() test
         System.out.println("Number of items: " + newRegister.numberOfItems());
+        // totalCost() test
         System.out.println("Total Cost: " + newRegister.totalCost());
+        // totalTax() test
         System.out.println("Total Tax: " + newRegister.totalTax());
 
         String total = String.format("%.2f", (newRegister.totalCost() + newRegister.totalTax()));
         System.out.println("Cost + Tax: " + total);
 
+        // toString() test
         String receipt = newRegister.toString();
 
         System.out.println("\n");
         System.out.println(receipt);
 
         System.out.println("\n-----------------------------------------");
-        System.out.println("Max Test - Same Item:\n");
+        System.out.println("Clear Receipt:\n");
 
-        DessertItem sameCandy = max(corn, lolipop);
-        DessertItem sameCookie = max(chocChip, oatmeal);
-        DessertItem sameIceCream = max(vanilla, chocolate);
-        DessertItem sameSundae = max(caramel, bananaSplit);
+        // clear() test
+        newRegister.clear();
+        System.out.println(newRegister.toString());
+
+        System.out.println("\n-----------------------------------------");
+        System.out.println("MAX TEST - SAME TYPE:\n");
+
+        // max() test w/ same item types
+        DessertItem sameCandy = DessertItem.max(corn, lolipop);
+        // printLarger() test w/ same item types
+        DessertItem.printLarger(sameCandy, corn, lolipop);
+
+        DessertItem sameCookie = DessertItem.max(chocChip, oatmeal);
+        DessertItem.printLarger(sameCookie, chocChip, oatmeal);
+
+        DessertItem sameIceCream = DessertItem.max(vanilla, chocolate);
+        DessertItem.printLarger(sameIceCream, vanilla, chocolate);
+
+        DessertItem sameSundae = DessertItem.max(caramel, bananaSplit);
+        DessertItem.printLarger(sameSundae, caramel, bananaSplit);
+
+        System.out.println("\n-----------------------------------------");
+        System.out.println("MAX TEST - DIFFERENT TYPE:\n");
+
+        // max() test w/ same item types
+        DessertItem diffItem1 = DessertItem.max(lolipop, oatmeal);
+        // printLarger() test w/ same item types
+        DessertItem.printLarger(diffItem1, lolipop, oatmeal);
+
+        DessertItem diffItem2 = DessertItem.max(bananaSplit, chocolate);
+        DessertItem.printLarger(diffItem2, bananaSplit, chocolate);
+
+        DessertItem diffItem3 = DessertItem.max(corn, vanilla);
+        DessertItem.printLarger(diffItem3, corn, vanilla);
+
+        DessertItem diffItem4 = DessertItem.max(caramel, chocChip);
+        DessertItem.printLarger(diffItem4, caramel, chocChip);
 
         System.out.println("\n-----------------------------------------");
         System.out.println("SORT:\n");
 
+        // ArrayList with DessertItem
         ArrayList<DessertItem> deserts = new ArrayList<>();
 
         deserts.add(corn);
@@ -130,13 +177,16 @@ public class main {
         deserts.add(caramel);
         deserts.add(bananaSplit);
 
+        // Prints unsorted ArrayList for comparison
         System.out.println("Unsorted:\n");
         for (DessertItem currItem : deserts) {
             System.out.println(currItem.name + ", Calories " + currItem.getCalories());
         }
 
+        // sort() test
         Collections.sort(deserts);
 
+        // Prints sorted ArrayList for comparison
         System.out.println("\nSorted:\n");
         for (DessertItem currItem : deserts) {
             System.out.println(currItem.name + ", Calories " + currItem.getCalories());
@@ -145,18 +195,4 @@ public class main {
 
     }
 
-    public static DessertItem max(DessertItem item1, DessertItem item2) {
-
-        int largerItem = item1.compareTo(item2);
-
-        if (largerItem == 1) {
-            return item1;
-        }
-        else if (largerItem == -1) {
-            return item2;
-        }
-        else {
-            return null;
-        }
-    }
 }
