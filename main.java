@@ -1,3 +1,10 @@
+/* Lionel Quintanilla and Nathanael Gastelum
+   February 19, 2020
+   Purpose: This program calculates cost and calories from a shopping cart of desserts and prints a sorted receipt
+   Input: No user input
+   Output: Test results for every dessert class and receipt for all checkout items
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
 
